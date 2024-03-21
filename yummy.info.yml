@@ -1,0 +1,15 @@
+name: yummy
+type: theme
+base theme: claro
+description: A flexible theme with a responsive, mobile-first layout.
+package: Custom
+core_version_requirement: ^9 || ^10
+libraries:
+  - yummy/global
+regions:
+  header: 'Header'
+  primary_menu: 'Primary menu'
+  hero_banner: 'Hero Banner'
+  content: 'Content'
+  footer_above: 'Footer Above'
+  footer: 'Footer'

@@ -1,0 +1,43 @@
+{# Get menu items #}
+{% set items = simplify_menu('main') %}
+<header id="header" class="header fixed-top d-flex align-items-center">
+    <div class="container d-flex align-items-center justify-content-between">
+
+        <a href="index.html" class="logo d-flex align-items-center me-auto me-lg-0">
+            <!-- Uncomment the line below if you also wish to use an image logo -->
+            <!-- <img src="assets/img/logo.png" alt=""> -->
+            <h1>Yummy<span>.</span></h1>
+        </a>
+        <!-- .navbar -->
+        {# Iterate menu tree #}
+        <nav id="navbar" class="navbar">
+            <ul>
+                {% for menu_item in items.menu_tree %}
+                {% if menu_item.submenu %}
+                <li class="navigation__item dropdown">
+                    <a href="#" class="nav-link scrollto">
+                        <span>{{ menu_item.text }}</span> <i class="bi bi-chevron-down"></i>
+                    </a>
+                    <ul>
+                        {% for item in menu_item.submenu %}
+                        <li class="navigation__item">
+                            <a href="{{ item.url }}" class="nav-link scrollto">{{ item.text }}</a>
+                        </li>
+                        {% endfor %}
+                    </ul>
+                </li>
+                {% else %}
+                <li class="navigation__item">
+                    <a href="{{ menu_item.url }}" class="nav-link scrollto">{{ menu_item.text }}</a>
+                </li>
+                {% endif %}
+                {% endfor %}
+            </ul>
+        </nav>
+        <!-- .navbar -->
+        <a class="btn-book-a-table" href="#book-a-table">Book a Table</a>
+        <i class="mobile-nav-toggle mobile-nav-show bi bi-list"></i>
+        <i class="mobile-nav-toggle mobile-nav-hide d-none bi bi-x"></i>
+
+    </div>
+</header>

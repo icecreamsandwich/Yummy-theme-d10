@@ -1,0 +1,28 @@
+
+  <section id="hero" class="hero d-flex align-items-center section-bg">
+    <div class="container">
+      <div class="row justify-content-between gy-5">
+        <div class="col-lg-5 order-2 order-lg-1 d-flex flex-column justify-content-center align-items-center align-items-lg-start text-center text-lg-start">
+          <h2 data-aos="fade-up">
+            {{ content.field_hero_banner_title | raw }}
+          </h2>
+          <p data-aos="fade-up" data-aos-delay="100">
+            {{ content.field_hero_banner_description | raw }}
+          </p>
+          <div class="d-flex" data-aos="fade-up" data-aos-delay="200">
+
+            {% set url1 = content.field_hero_banner_links.0['#url'] ?? '' %}
+            {% set title1 = content.field_hero_banner_links.0['#title'] ?? '' %}
+            {% set url2 = content.field_hero_banner_links.1['#url'] ?? '' %}
+            {% set title2 = content.field_hero_banner_links.1['#title'] ?? '' %}
+
+            <a href="{{ url }}" class="btn-book-a-table">{{ title1 }}</a>
+            <a href="{{ url2 }}" class="glightbox btn-watch-video d-flex align-items-center"><i class="bi bi-play-circle"></i><span>{{ title2 }}</span></a>
+           </div>
+        </div>
+        <div class="col-lg-5 order-1 order-lg-2 text-center text-lg-start">
+            {{ content.field_hero_banner_image }}
+        </div>
+      </div>
+    </div>
+  </section>
