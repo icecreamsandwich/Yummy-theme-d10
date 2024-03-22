@@ -1,0 +1,5 @@
+{% if items %}
+    {% for item in items %}
+        <li><i class="bi bi-check2-all"></i> {{ item.content | raw }}</li>
+    {% endfor %}
+{% endif %}
