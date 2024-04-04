@@ -1,0 +1,111 @@
+<!-- ======= Menu Section ======= -->
+<section id="menu" class="menu">
+    <div class="container" data-aos="fade-up">
+
+        <div class="section-header">
+            <h2>Our Menu</h2>
+
+            {% set menu_heading = content.field_menu_title|render|striptags|trim|slice(0, 10) %}
+            {% set menu_span = content.field_menu_title|render|striptags|trim|slice(10, 20) %}
+            <p> {{ menu_heading }} <span>{{ menu_span }}</span></p>
+
+        </div>
+
+        <ul class="nav nav-tabs d-flex justify-content-center" data-aos="fade-up" data-aos-delay="200">
+
+            <li class="nav-item">
+                <a class="nav-link active show" data-bs-toggle="tab" data-bs-target="#menu-starters">
+                    <h4>Starters</h4>
+                </a>
+            </li><!-- End tab nav item -->
+
+            <li class="nav-item">
+                <a class="nav-link" data-bs-toggle="tab" data-bs-target="#menu-breakfast">
+                    <h4>Breakfast</h4>
+                </a><!-- End tab nav item -->
+
+            <li class="nav-item">
+                <a class="nav-link" data-bs-toggle="tab" data-bs-target="#menu-lunch">
+                    <h4>Lunch</h4>
+                </a>
+            </li><!-- End tab nav item -->
+
+            <li class="nav-item">
+                <a class="nav-link" data-bs-toggle="tab" data-bs-target="#menu-dinner">
+                    <h4>Dinner</h4>
+                </a>
+            </li><!-- End tab nav item -->
+
+        </ul>
+
+        <div class="tab-content" data-aos="fade-up" data-aos-delay="300">
+                <!-- {{ kint(content.field_starter_items.0) }} -->
+            {% set menu_type_starter = content.field_starter_items[0]['#paragraph'].field_menu_type.value %}
+            {% set menu_type_lunch = content.field_lunch_items[0]['#paragraph'].field_menu_type.value %}
+            {% set menu_type_dinner = content.field_dinner_items[0]['#paragraph'].field_menu_type.value %}
+            {% set menu_type_bfast = content.field_breakfast_items[0]['#paragraph'].field_menu_type.value %}
+
+            <!-- Start Starter Menu Content -->
+            <div class="tab-pane fade active show" id="menu-{{ menu_type_starter }}">
+                <div class="tab-header text-center">
+                    <p>Menu</p>
+                    <h3>{{ menu_type_starter ? menu_type_starter|title : '' }}</h3>
+                </div>
+
+                <div class="row gy-5">
+                    {% if content.field_starter_items %}
+                        {{ content.field_starter_items }}
+                    {% endif %}
+                </div>
+            </div><!-- End Starter Menu Content -->
+
+
+            <!-- Start Breakfast Menu Content -->
+            <div class="tab-pane fade" id="menu-{{menu_type_bfast}}">
+
+                <div class="tab-header text-center">
+                    <p>Menu</p>
+                    <h3>{{menu_type_bfast ? menu_type_bfast| title : ''}}</h3>
+                </div>
+
+                <div class="row gy-5">
+                    {% if content.field_breakfast_items %}
+                         {{ content.field_breakfast_items }}
+                    {% endif %}
+                </div>
+            </div><!-- End Breakfast Menu Content -->
+
+            <!-- Start Lunch Menu Content -->
+            <div class="tab-pane fade" id="menu-{{menu_type_lunch}}">
+
+                <div class="tab-header text-center">
+                    <p>Menu</p>
+                    <h3>{{menu_type_lunch ? menu_type_lunch| title : 'EMpty lunch'}}</h3>
+                </div>
+
+                <div class="row gy-5">
+                    {% if content.field_lunch_items %}
+                         {{ content.field_lunch_items }}
+                    {% endif %}
+                </div>
+            </div><!-- End Lunch Menu Content -->
+
+
+            <!-- Start Dinner Menu Content -->
+            <div class="tab-pane fade" id="menu-{{menu_type_dinner}}">
+
+                <div class="tab-header text-center">
+                    <p>Menu</p>
+                    <h3>{{menu_type_dinner ? menu_type_dinner|title : ''}}</h3>
+                </div>
+
+                <div class="row gy-5">
+                    {% if content.field_dinner_items %}
+                         {{ content.field_dinner_items }}
+                    {% endif %}
+                </div>
+            </div><!-- End Dinner Menu Content -->
+
+        </div>
+    </div>
+</section><!-- End Menu Section -->

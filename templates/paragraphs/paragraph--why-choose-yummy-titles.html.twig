@@ -1,0 +1,9 @@
+{% set tile_icon_class = paragraph.field_tile_icon_class.value %}
+
+<div class="col-xl-4" data-aos="fade-up" data-aos-delay="200">
+    <div class="icon-box d-flex flex-column justify-content-center align-items-center">
+        <i class="{{ tile_icon_class }}"></i>
+        <h4>{{ paragraph.field_tile_title.value }}</h4>
+        <p>{{ paragraph.field_tile_description.value }}</p>
+    </div>
+</div>

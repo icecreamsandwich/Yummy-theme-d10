@@ -1,0 +1,39 @@
+<!-- ======= Why Us Section ======= -->
+<section id="why-us" class="why-us section-bg">
+    <div class="container" data-aos="fade-up">
+
+      <div class="row gy-4">
+
+        <div class="col-lg-4" data-aos="fade-up" data-aos-delay="100">
+          <div class="why-box">
+            <h3> {{ content.field_yummy_banner_title | raw }} </h3>
+            <p>
+                {{ content.field_yummy_banner_description | raw }}
+            </p>
+            <div class="text-center">
+              <a href="#" class="more-btn">Learn More <i class="bx bx-chevron-right"></i></a>
+            </div>
+          </div>
+        </div><!-- End Why Box -->
+
+        <div class="col-lg-8 d-flex align-items-center">
+            <div class="row gy-4">
+                {% if content.field_yummy_tiles and content.field_yummy_tiles|length > 0%}
+                    {{ content.field_yummy_tiles }}
+                {% endif %}
+            </div>
+        </div>
+      </div>
+    </div>
+  </section><!-- End Why Us Section -->
+
+  <!-- ======= Stats Counter Section ======= -->
+  <section id="stats-counter" class="stats-counter">
+    <div class="container" data-aos="zoom-out">
+      <div class="row gy-4">
+        {% if content.field_project_counter and content.field_project_counter|length > 0%}
+          {{ content.field_project_counter }}
+        {% endif %}
+      </div>
+    </div>
+  </section><!-- End Stats Counter Section -->

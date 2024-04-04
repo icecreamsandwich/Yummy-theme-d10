@@ -1,0 +1,19 @@
+{% set number_prefix = paragraph.field_menu_item_price.getSetting('prefix') %}
+{% set file_uri = file_url(paragraph.field_menu_item_image.entity.uri.value) %}
+{% set menu_type = paragraph.field_menu_type.value %}
+
+<div class="col-lg-4 menu-item">
+
+    <a href="{{ file_uri }}" class="glightbox">
+        {{ content.field_menu_item_image | set_attribute('class', 'menu-img img-fluid') }}
+    </a>
+
+    <h4>{{ paragraph.field_menu_item_name.value }}</h4>
+
+    <p class="ingredients">
+        {{ paragraph.field_menu_item_ingradients.value }}
+    </p>
+    <p class="price">
+        {{ number_prefix ~ paragraph.field_menu_item_price.value }}
+    </p>
+</div>

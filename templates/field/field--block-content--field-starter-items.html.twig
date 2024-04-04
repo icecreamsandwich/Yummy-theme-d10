@@ -1,0 +1,7 @@
+<!-- Iterate each paragraph fields here -->
+
+{% if items and items|length > 0 %}
+    {% for key, item in items %}
+      {{ item.content}}
+    {% endfor %}
+{% endif %}

@@ -1,0 +1,7 @@
+{% if items and items|length > 0 %}
+
+{% for item in items %}
+    {{ item.content }}
+{% endfor %}
+
+{% endif %}
