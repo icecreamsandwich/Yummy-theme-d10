@@ -1,111 +1,167 @@
-<!-- ======= Menu Section ======= -->
-<section id="menu" class="menu">
-    <div class="container" data-aos="fade-up">
+{#
+/**
+* @file
+* Olivero's implementation to display a block.
+*
+* Available variables:
+* - layout: String that will determine the layout of the block.
+* - plugin_id: The ID of the block implementation.
+* - label: The configured label of the block if visible.
+* - configuration: A list of the block's configuration values.
+* - label: The configured label for the block.
+* - label_display: The display settings for the label.
+* - provider: The module or other provider that provided this block plugin.
+* - Block plugin specific settings will also be stored here.
+* - in_preview: Whether the plugin is being rendered in preview mode.
+* - content: The content of this block.
+* - attributes: array of HTML attributes populated by modules, intended to
+* be added to the main container tag of this template.
+* - id: A valid HTML ID and guaranteed unique.
+* - title_attributes: Same as attributes, except applied to the main title
+* tag that appears in the template.
+* - content_attributes: Same as attributes, except applied to the main content
+* tag that appears in the template.
+* - title_prefix: Additional output populated by modules, intended to be
+* displayed in front of the main title tag that appears in the template.
+* - title_suffix: Additional output populated by modules, intended to be
+* displayed after the main title tag that appears in the template.
+*
+* @see template_preprocess_block()
+*
+* @ingroup themeable
+*/
+#}
 
-        <div class="section-header">
-            <h2>Our Menu</h2>
+{%
+set classes = [
+'block',
+'block-' ~ configuration.provider|clean_class,
+'block-' ~ plugin_id|clean_class,
+layout ? 'layout--' ~ layout|clean_class,
+]
+%}
 
-            {% set menu_heading = content.field_menu_title|render|striptags|trim|slice(0, 10) %}
-            {% set menu_span = content.field_menu_title|render|striptags|trim|slice(10, 20) %}
-            <p> {{ menu_heading }} <span>{{ menu_span }}</span></p>
+<div{{ attributes.addClass(classes) }}>
+    {{ title_prefix }}
+    {% if label %}
+    <h2{{ title_attributes.addClass('block__title') }}>{{ label }}</h2>
+        {% endif %}
+        {{ title_suffix }}
+        {% block content %}
+        <div{{ content_attributes.addClass('block__content') }}>
 
-        </div>
+            <!-- ======= Menu Section ======= -->
+            <section id="menu" class="menu">
+                <div class="container" data-aos="fade-up">
 
-        <ul class="nav nav-tabs d-flex justify-content-center" data-aos="fade-up" data-aos-delay="200">
+                    <div class="section-header">
+                        <h2>Our Menu</h2>
 
-            <li class="nav-item">
-                <a class="nav-link active show" data-bs-toggle="tab" data-bs-target="#menu-starters">
-                    <h4>Starters</h4>
-                </a>
-            </li><!-- End tab nav item -->
+                        {% set menu_heading = content.field_menu_title|render|striptags|trim|slice(0, 10) %}
+                        {% set menu_span = content.field_menu_title|render|striptags|trim|slice(10, 20) %}
+                        <p> {{ menu_heading }} <span>{{ menu_span }}</span></p>
 
-            <li class="nav-item">
-                <a class="nav-link" data-bs-toggle="tab" data-bs-target="#menu-breakfast">
-                    <h4>Breakfast</h4>
-                </a><!-- End tab nav item -->
+                    </div>
 
-            <li class="nav-item">
-                <a class="nav-link" data-bs-toggle="tab" data-bs-target="#menu-lunch">
-                    <h4>Lunch</h4>
-                </a>
-            </li><!-- End tab nav item -->
+                    <ul class="nav nav-tabs d-flex justify-content-center" data-aos="fade-up" data-aos-delay="200">
 
-            <li class="nav-item">
-                <a class="nav-link" data-bs-toggle="tab" data-bs-target="#menu-dinner">
-                    <h4>Dinner</h4>
-                </a>
-            </li><!-- End tab nav item -->
+                        <li class="nav-item">
+                            <a class="nav-link active show" data-bs-toggle="tab" data-bs-target="#menu-starters">
+                                <h4>Starters</h4>
+                            </a>
+                        </li><!-- End tab nav item -->
 
-        </ul>
+                        <li class="nav-item">
+                            <a class="nav-link" data-bs-toggle="tab" data-bs-target="#menu-breakfast">
+                                <h4>Breakfast</h4>
+                            </a><!-- End tab nav item -->
 
-        <div class="tab-content" data-aos="fade-up" data-aos-delay="300">
-                <!-- {{ kint(content.field_starter_items.0) }} -->
-            {% set menu_type_starter = content.field_starter_items[0]['#paragraph'].field_menu_type.value %}
-            {% set menu_type_lunch = content.field_lunch_items[0]['#paragraph'].field_menu_type.value %}
-            {% set menu_type_dinner = content.field_dinner_items[0]['#paragraph'].field_menu_type.value %}
-            {% set menu_type_bfast = content.field_breakfast_items[0]['#paragraph'].field_menu_type.value %}
+                        <li class="nav-item">
+                            <a class="nav-link" data-bs-toggle="tab" data-bs-target="#menu-lunch">
+                                <h4>Lunch</h4>
+                            </a>
+                        </li><!-- End tab nav item -->
 
-            <!-- Start Starter Menu Content -->
-            <div class="tab-pane fade active show" id="menu-{{ menu_type_starter }}">
-                <div class="tab-header text-center">
-                    <p>Menu</p>
-                    <h3>{{ menu_type_starter ? menu_type_starter|title : '' }}</h3>
+                        <li class="nav-item">
+                            <a class="nav-link" data-bs-toggle="tab" data-bs-target="#menu-dinner">
+                                <h4>Dinner</h4>
+                            </a>
+                        </li><!-- End tab nav item -->
+
+                    </ul>
+
+                    <div class="tab-content" data-aos="fade-up" data-aos-delay="300">
+                        <!-- {{ kint(content.field_starter_items.0) }} -->
+                        {% set menu_type_starter = content.field_starter_items[0]['#paragraph'].field_menu_type.value %}
+                        {% set menu_type_lunch = content.field_lunch_items[0]['#paragraph'].field_menu_type.value %}
+                        {% set menu_type_dinner = content.field_dinner_items[0]['#paragraph'].field_menu_type.value %}
+                        {% set menu_type_bfast = content.field_breakfast_items[0]['#paragraph'].field_menu_type.value %}
+
+                        <!-- Start Starter Menu Content -->
+                        <div class="tab-pane fade active show" id="menu-{{ menu_type_starter }}">
+                            <div class="tab-header text-center">
+                                <p>Menu</p>
+                                <h3>{{ menu_type_starter ? menu_type_starter|title : '' }}</h3>
+                            </div>
+
+                            <div class="row gy-5">
+                                {% if content.field_starter_items %}
+                                {{ content.field_starter_items }}
+                                {% endif %}
+                            </div>
+                        </div><!-- End Starter Menu Content -->
+
+
+                        <!-- Start Breakfast Menu Content -->
+                        <div class="tab-pane fade" id="menu-{{menu_type_bfast}}">
+
+                            <div class="tab-header text-center">
+                                <p>Menu</p>
+                                <h3>{{menu_type_bfast ? menu_type_bfast| title : ''}}</h3>
+                            </div>
+
+                            <div class="row gy-5">
+                                {% if content.field_breakfast_items %}
+                                {{ content.field_breakfast_items }}
+                                {% endif %}
+                            </div>
+                        </div><!-- End Breakfast Menu Content -->
+
+                        <!-- Start Lunch Menu Content -->
+                        <div class="tab-pane fade" id="menu-{{menu_type_lunch}}">
+
+                            <div class="tab-header text-center">
+                                <p>Menu</p>
+                                <h3>{{menu_type_lunch ? menu_type_lunch| title : 'EMpty lunch'}}</h3>
+                            </div>
+
+                            <div class="row gy-5">
+                                {% if content.field_lunch_items %}
+                                {{ content.field_lunch_items }}
+                                {% endif %}
+                            </div>
+                        </div><!-- End Lunch Menu Content -->
+
+
+                        <!-- Start Dinner Menu Content -->
+                        <div class="tab-pane fade" id="menu-{{menu_type_dinner}}">
+
+                            <div class="tab-header text-center">
+                                <p>Menu</p>
+                                <h3>{{menu_type_dinner ? menu_type_dinner|title : ''}}</h3>
+                            </div>
+
+                            <div class="row gy-5">
+                                {% if content.field_dinner_items %}
+                                {{ content.field_dinner_items }}
+                                {% endif %}
+                            </div>
+                        </div><!-- End Dinner Menu Content -->
+
+                    </div>
                 </div>
+            </section><!-- End Menu Section -->
 
-                <div class="row gy-5">
-                    {% if content.field_starter_items %}
-                        {{ content.field_starter_items }}
-                    {% endif %}
-                </div>
-            </div><!-- End Starter Menu Content -->
-
-
-            <!-- Start Breakfast Menu Content -->
-            <div class="tab-pane fade" id="menu-{{menu_type_bfast}}">
-
-                <div class="tab-header text-center">
-                    <p>Menu</p>
-                    <h3>{{menu_type_bfast ? menu_type_bfast| title : ''}}</h3>
-                </div>
-
-                <div class="row gy-5">
-                    {% if content.field_breakfast_items %}
-                         {{ content.field_breakfast_items }}
-                    {% endif %}
-                </div>
-            </div><!-- End Breakfast Menu Content -->
-
-            <!-- Start Lunch Menu Content -->
-            <div class="tab-pane fade" id="menu-{{menu_type_lunch}}">
-
-                <div class="tab-header text-center">
-                    <p>Menu</p>
-                    <h3>{{menu_type_lunch ? menu_type_lunch| title : 'EMpty lunch'}}</h3>
-                </div>
-
-                <div class="row gy-5">
-                    {% if content.field_lunch_items %}
-                         {{ content.field_lunch_items }}
-                    {% endif %}
-                </div>
-            </div><!-- End Lunch Menu Content -->
-
-
-            <!-- Start Dinner Menu Content -->
-            <div class="tab-pane fade" id="menu-{{menu_type_dinner}}">
-
-                <div class="tab-header text-center">
-                    <p>Menu</p>
-                    <h3>{{menu_type_dinner ? menu_type_dinner|title : ''}}</h3>
-                </div>
-
-                <div class="row gy-5">
-                    {% if content.field_dinner_items %}
-                         {{ content.field_dinner_items }}
-                    {% endif %}
-                </div>
-            </div><!-- End Dinner Menu Content -->
-
-        </div>
-    </div>
-</section><!-- End Menu Section -->
+            </div>
+            {% endblock %}
+            </div>

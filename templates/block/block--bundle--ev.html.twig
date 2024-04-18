@@ -1,0 +1,89 @@
+{#
+/**
+* @file
+* Olivero's implementation to display a block.
+*
+* Available variables:
+* - layout: String that will determine the layout of the block.
+* - plugin_id: The ID of the block implementation.
+* - label: The configured label of the block if visible.
+* - configuration: A list of the block's configuration values.
+* - label: The configured label for the block.
+* - label_display: The display settings for the label.
+* - provider: The module or other provider that provided this block plugin.
+* - Block plugin specific settings will also be stored here.
+* - in_preview: Whether the plugin is being rendered in preview mode.
+* - content: The content of this block.
+* - attributes: array of HTML attributes populated by modules, intended to
+* be added to the main container tag of this template.
+* - id: A valid HTML ID and guaranteed unique.
+* - title_attributes: Same as attributes, except applied to the main title
+* tag that appears in the template.
+* - content_attributes: Same as attributes, except applied to the main content
+* tag that appears in the template.
+* - title_prefix: Additional output populated by modules, intended to be
+* displayed in front of the main title tag that appears in the template.
+* - title_suffix: Additional output populated by modules, intended to be
+* displayed after the main title tag that appears in the template.
+*
+* @see template_preprocess_block()
+*
+* @ingroup themeable
+*/
+#}
+
+{%
+set classes = [
+'block',
+'block-' ~ configuration.provider|clean_class,
+'block-' ~ plugin_id|clean_class,
+layout ? 'layout--' ~ layout|clean_class,
+]
+%}
+
+<div{{ attributes.addClass(classes) }}>
+    {{ title_prefix }}
+    {% if label %}
+    <h2{{ title_attributes.addClass('block__title') }}>{{ label }}</h2>
+        {% endif %}
+        {{ title_suffix }}
+        {% block content %}
+        <div{{ content_attributes.addClass('block__content') }}>
+
+            <!-- ======= Events Section ======= -->
+            <section id="events" class="events">
+                <div class="container-fluid" data-aos="fade-up">
+
+                    <div class="section-header">
+                        <h2>{{ content.field_events_header }}</h2>
+                        {{ content.field_events_sub_heading }}
+                    </div>
+
+                    <div class="slides-3 swiper" data-aos="fade-up" data-aos-delay="100">
+                        <div class="swiper-wrapper">
+
+                            {% for key, item in content.field_events %}
+                            {% if key|first != '#' %}
+                            {% set bgimage = file_url(item['#paragraph'].field_events_bg_image.entity.uri.value) %}
+                            {% set number_prefix = item['#paragraph'].field_event_price.getSetting('prefix') %}
+
+                            <div class="swiper-slide event-item d-flex flex-column justify-content-end"
+                                style="background-image: url({{bgimage}})">
+                                <h3>{{ item['#paragraph'].field_event_title.value }}</h3>
+                                <div class="price align-self-start">{{ number_prefix ~
+                                    item['#paragraph'].field_event_price.value }}</div>
+                                <p class="description">
+                                    {{ item['#paragraph'].field_event_description.value }}
+                                </p>
+                            </div><!-- End Event item -->
+                            {% endif %}
+                            {% endfor %}
+                        </div>
+                        <div class="swiper-pagination"></div>
+                    </div>
+                </div>
+            </section><!-- End Events Section -->
+
+            </div>
+            {% endblock %}
+            </div>

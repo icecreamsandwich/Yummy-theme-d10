@@ -1,39 +1,95 @@
-<!-- ======= Why Us Section ======= -->
-<section id="why-us" class="why-us section-bg">
-    <div class="container" data-aos="fade-up">
+{#
+/**
+* @file
+* Olivero's implementation to display a block.
+*
+* Available variables:
+* - layout: String that will determine the layout of the block.
+* - plugin_id: The ID of the block implementation.
+* - label: The configured label of the block if visible.
+* - configuration: A list of the block's configuration values.
+* - label: The configured label for the block.
+* - label_display: The display settings for the label.
+* - provider: The module or other provider that provided this block plugin.
+* - Block plugin specific settings will also be stored here.
+* - in_preview: Whether the plugin is being rendered in preview mode.
+* - content: The content of this block.
+* - attributes: array of HTML attributes populated by modules, intended to
+* be added to the main container tag of this template.
+* - id: A valid HTML ID and guaranteed unique.
+* - title_attributes: Same as attributes, except applied to the main title
+* tag that appears in the template.
+* - content_attributes: Same as attributes, except applied to the main content
+* tag that appears in the template.
+* - title_prefix: Additional output populated by modules, intended to be
+* displayed in front of the main title tag that appears in the template.
+* - title_suffix: Additional output populated by modules, intended to be
+* displayed after the main title tag that appears in the template.
+*
+* @see template_preprocess_block()
+*
+* @ingroup themeable
+*/
+#}
 
-      <div class="row gy-4">
+{%
+set classes = [
+'block',
+'block-' ~ configuration.provider|clean_class,
+'block-' ~ plugin_id|clean_class,
+layout ? 'layout--' ~ layout|clean_class,
+]
+%}
 
-        <div class="col-lg-4" data-aos="fade-up" data-aos-delay="100">
-          <div class="why-box">
-            <h3> {{ content.field_yummy_banner_title | raw }} </h3>
-            <p>
-                {{ content.field_yummy_banner_description | raw }}
-            </p>
-            <div class="text-center">
-              <a href="#" class="more-btn">Learn More <i class="bx bx-chevron-right"></i></a>
+<div{{ attributes.addClass(classes) }}>
+  {{ title_prefix }}
+  {% if label %}
+  <h2{{ title_attributes.addClass('block__title') }}>{{ label }}</h2>
+    {% endif %}
+    {{ title_suffix }}
+    {% block content %}
+    <div{{ content_attributes.addClass('block__content') }}>
+
+      <!-- ======= Why Us Section ======= -->
+      <section id="why-us" class="why-us section-bg">
+        <div class="container" data-aos="fade-up">
+
+          <div class="row gy-4">
+
+            <div class="col-lg-4" data-aos="fade-up" data-aos-delay="100">
+              <div class="why-box">
+                <h3> {{ content.field_yummy_banner_title | raw }} </h3>
+                <p>
+                  {{ content.field_yummy_banner_description | raw }}
+                </p>
+                <div class="text-center">
+                  <a href="#" class="more-btn">Learn More <i class="bx bx-chevron-right"></i></a>
+                </div>
+              </div>
+            </div><!-- End Why Box -->
+
+            <div class="col-lg-8 d-flex align-items-center">
+              <div class="row gy-4">
+                {% if content.field_yummy_tiles and content.field_yummy_tiles|length > 0%}
+                {{ content.field_yummy_tiles }}
+                {% endif %}
+              </div>
             </div>
           </div>
-        </div><!-- End Why Box -->
-
-        <div class="col-lg-8 d-flex align-items-center">
-            <div class="row gy-4">
-                {% if content.field_yummy_tiles and content.field_yummy_tiles|length > 0%}
-                    {{ content.field_yummy_tiles }}
-                {% endif %}
-            </div>
         </div>
-      </div>
-    </div>
-  </section><!-- End Why Us Section -->
+      </section><!-- End Why Us Section -->
 
-  <!-- ======= Stats Counter Section ======= -->
-  <section id="stats-counter" class="stats-counter">
-    <div class="container" data-aos="zoom-out">
-      <div class="row gy-4">
-        {% if content.field_project_counter and content.field_project_counter|length > 0%}
-          {{ content.field_project_counter }}
-        {% endif %}
+      <!-- ======= Stats Counter Section ======= -->
+      <section id="stats-counter" class="stats-counter">
+        <div class="container" data-aos="zoom-out">
+          <div class="row gy-4">
+            {% if content.field_project_counter and content.field_project_counter|length > 0%}
+            {{ content.field_project_counter }}
+            {% endif %}
+          </div>
+        </div>
+      </section><!-- End Stats Counter Section -->
+
       </div>
-    </div>
-  </section><!-- End Stats Counter Section -->
+      {% endblock %}
+      </div>
